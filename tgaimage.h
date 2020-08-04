@@ -16,8 +16,8 @@ struct TGA_Header {
 	short y_origin;
 	short width;
 	short height;
-	char  bitsperpixel;
-	char  imagedescriptor;
+	char bitsperpixel;
+	char imagedescriptor;
 };
 
 #pragma pack(pop)
