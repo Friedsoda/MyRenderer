@@ -14,7 +14,7 @@ void lookat(Vec3f eye, Vec3f center, Vec3f up);
 
 struct IShader {
     virtual ~IShader();
-    virtual Vec4f vertex(int iface, int nthvert) = 0;
+    virtual Vec4f vertex(int iface, int n) = 0;
     virtual bool fragment(Vec3f bar, TGAColor &color) = 0;
 };
 

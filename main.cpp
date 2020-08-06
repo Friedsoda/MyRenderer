@@ -19,24 +19,24 @@ const int width = 800;
 const int height = 800;
 
 Vec3f light_dir(1, 1, 1);
-Vec3f       eye(0, -1, 3);
+Vec3f       eye(0, 0, 3);
 Vec3f    center(0, 0, 0);
 Vec3f        up(0, 1, 0);
 
 struct GouraudShader : public IShader {
-    Vec3f varying_intensity; // written by vertex shader, read by fragment shader
+    Vec3f varying_intensity;
 
-    virtual Vec4f vertex(int iface, int nthvert) {
-        Vec4f gl_Vertex = embed<4>(model->vert(iface, nthvert)); // read the vertex from .obj file
-        gl_Vertex = Viewport*Projection*ModelView*gl_Vertex;     // transform it to screen coordinates
-        varying_intensity[nthvert] = std::max(0.f, model->normal(iface, nthvert)*light_dir); // get diffuse lighting intensity
+    virtual Vec4f vertex(int iface, int n) {
+        Vec4f gl_Vertex = embed<4>(model->vert(iface, n)); // read vertex
+        gl_Vertex = Viewport * Projection * ModelView * gl_Vertex; // transform
+        varying_intensity[n] = std::max(0.f, model->normal(iface, n) * light_dir); // get diffuse lighting intensity
         return gl_Vertex;
     }
 
     virtual bool fragment(Vec3f bar, TGAColor &color) {
-        float intensity = varying_intensity*bar;   // interpolate intensity for the current pixel
-        color = TGAColor(255, 255, 255)*intensity; // well duh
-        return false;                              // no, we do not discard this pixel
+        float intensity = varying_intensity * bar; // interpolate intensity
+        color = TGAColor(255, 255, 255)*intensity;
+        return false;
     }
 };
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     if (2 == argc) {
         model = new Model(argv[1]);
     } else {
-        model = new Model("/Users/manmanto/Desktop/Pro/CG/Projects/MyRenderer/MyRenderer/obj/african_head/african_head.obj");
+        model = new Model("/Users/manmanto/Desktop/Pro/CG/Projects/MyRenderer/MyRenderer/obj/cow/cow.obj");
     }
 
     lookat(eye, center, up);
