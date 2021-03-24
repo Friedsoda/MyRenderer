@@ -2,7 +2,7 @@
 
 C++光栅化渲染器。
 
-[C++ Rasterization 光栅化渲染器 | Friedsoda](https://friedsoda.github.io/2020-07/t1)
+[C++ Tiny Renderer](https://friedsoda.github.io/blog/t1)
 
 <br/>
 功能还在更新中：
